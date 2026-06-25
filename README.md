@@ -27,11 +27,11 @@ avec une architecture MVVM et le package Provider.
 2. Cloner le depot : git clone <URL_du_depot>
 3. Installer les dependances : flutter pub get
 4. Lancer l’application : flutter run
-3. Cloner le depot : git clone <URL_du_depot>
+5. Cloner le depot : git clone <URL_du_depot>
 
 ## CORRECTION ETAPE 2 : CREER LE MODELE DE DONNEES
 # Question de comprehension
-# Notre reponse : Les propriétés de la classe Ville sont déclarées avec le mot-clé final pour rendre l'objet immuable (impossible à modifier après sa création).
+ Notre reponse : Les propriétés de la classe Ville sont déclarées avec le mot-clé final pour rendre l'objet immuable (impossible à modifier après sa création).
 
   ## Grille d’auto-evaluation
   |CRITERE                                                      | NON FAIT | PARTIELLEMENT | REALISER|
@@ -45,11 +45,8 @@ avec une architecture MVVM et le package Provider.
   |Les deux écrans fonctionnent correctemenT                    |    ☐    |     ☐         |    ☑    |
 
 
+ ## Notes personnelles à ajouter
+     Le projet respecte scrupuleusement l'architecture MVVM. Les états sont gérés de manière fluide par le Provider. L'interface utilisateur est dynamique et réagit instantanément aux changements de données, y compris lors de l'ajout manuel d'une nouvelle ville via le formulaire.
+Nous avons fait un super boulot sur cette application météo, le code est propre, fonctionnel et bien structuré.
 
-        # Notes personnelles à ajouter
-# Le projet respecte scrupuleusement l'architecture MVVM. Les états sont gérés de manière fluide par le Provider. L'interface utilisateur est dynamique et réagit instantanément aux changements de données, y compris lors de l'ajout manuel d'une nouvelle ville via le formulaire.
-# Nous avons fait un super boulot sur cette application météo, le code est propre, fonctionnel et bien structuré.
 
-
-4. Installer les dependances : flutter pub get
-5. Lancer l’application : flutter run
