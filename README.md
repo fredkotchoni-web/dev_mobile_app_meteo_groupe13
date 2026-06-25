@@ -42,7 +42,7 @@ avec une architecture MVVM et le package Provider.
   |ChangeNotifierProvider est configuré dans main.dart          |    ☐    |     ☐         |    ☑    |
   |L'écran d'accueil utilise context.watch()                    |    ☐    |     ☐         |    ☑    |
   |Sélectionnez une ville avec jour l'accueil                   |    ☐    |     ☐         |    ☑    |
-  |Les deux écrans fonctionnent correctemenT                    |    ☐    |     ☐         |    ☑    |
+  |Les deux écrans fonctionnent correctement                    |    ☐    |     ☐         |    ☑    |
 
 
  ## Notes personnelles à ajouter
