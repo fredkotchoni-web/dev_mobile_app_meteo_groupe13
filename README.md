@@ -9,8 +9,8 @@ Application meteo AppMeteo- TP UE2
 | 3 | HOUEGNIHOUE E. Casimir | Developpeur         |
 | 4 | BOUKO Faïzou Bio Nari  | Developpeur         |
 | 5 | FANOUDH Gilles         | Developpeur         |
-| 5 | M'PO Nestor            | Developpeur         |
-| 6 | GNAGNA E. Landry       | Rapporteur          |
+| 6 | M'PO Nestor            | Developpeur         |
+| 7 | GNAGNA E. Landry       | Rapporteur          |
 
 ## Enseignant
 TOGNON Jean-Paul
