@@ -29,11 +29,11 @@ avec une architecture MVVM et le package Provider.
 4. Lancer l’application : flutter run
 3. Cloner le depot : git clone <URL_du_depot>
 
-CORRECTION ETAPE 2 : CREER LE MODELE DE DONNEES
-Question de comprehension
+## CORRECTION ETAPE 2 : CREER LE MODELE DE DONNEES
+# Question de comprehension
 Notre reponse : Les propriétés de la classe Ville sont déclarées avec le mot-clé final pour rendre l'objet immuable (impossible à modifier après sa création).
 
-   Grille d’auto-evaluation
+  ## Grille d’auto-evaluation
   --------------------------------------------------------------------------------------------------
   |CRITERE                                                      | NON FAIT | PARTIELLEMENT | REALISER|
   |---------------------------------------------------------------------------------------------------
