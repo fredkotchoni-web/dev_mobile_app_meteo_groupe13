@@ -48,5 +48,14 @@ avec une architecture MVVM et le package Provider.
  ## Notes personnelles à ajouter
      Le projet respecte scrupuleusement l'architecture MVVM. Les états sont gérés de manière fluide par le Provider. L'interface utilisateur est dynamique et réagit instantanément aux changements de données, y compris lors de l'ajout manuel d'une nouvelle ville via le formulaire.
 Nous avons fait un super boulot sur cette application météo, le code est propre, fonctionnel et bien structuré.
-
-
+## TP2
+## Grille d’auto-evaluation
+|CRITERE                                          | NON FAIT | PARTIELLEMENT | REALISER |
+|-------------------------------------------------|----------|---------------|--------- |
+|dio est installé et configuré                    |    ☐    |     ☐         |    ☑    |
+|La classe MeteoData parse correctement le JS     |    ☐    |     ☐         |    ☑    |
+|Le service MeteoService appelle l’API            |    ☐    |     ☐         |    ☑    |
+|L’intercepteur de log affiche les requêtes       |    ☐    |     ☐         |    ☑    |
+|La vraie température s’affiche dans l’app        |    ☐    |     ☐         |    ☑    |
+|Le loader s’affiche pendant le chargement        |    ☐    |     ☐         |    ☑    |
+|L’erreur réseau est gérée et affichée            |    ☐    |     ☐         |    ☑    |
