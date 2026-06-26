@@ -5,7 +5,6 @@ import 'screens/ecran_accueil.dart';
 
 void main() {
   runApp(
-    // ChangeNotifierProvider place le ViewModel au sommet de l’arbre
     ChangeNotifierProvider(
       create: (_) => VilleViewModel(),
       child: MaterialApp(

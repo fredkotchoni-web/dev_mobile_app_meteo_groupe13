@@ -9,7 +9,6 @@ class EcranListeVilles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // On lit la liste des villes depuis le ViewModel
     final vm = context.watch<VilleViewModel>();
 
     return Scaffold(
@@ -50,7 +49,6 @@ class EcranListeVilles extends StatelessWidget {
         },
       ),
 
-      // LE BOUTON AJOUTÉ : FloatingActionButton pour ouvrir le formulaire d'ajout
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue,
         onPressed: () {

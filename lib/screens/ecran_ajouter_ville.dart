@@ -19,7 +19,6 @@ class _EcranAjouterVilleState extends State<EcranAjouterVille> {
   final _tempController = TextEditingController();
   final _humiditeController = TextEditingController();
 
-  // Valeur par défaut pour la liste déroulante (Dropdown)
   String _conditionSelectionnee = 'Ensoleille';
 
   // Les options disponibles pour la météo
@@ -94,7 +93,6 @@ class _EcranAjouterVilleState extends State<EcranAjouterVille> {
               ),
               const SizedBox(height: 16),
 
-              // Liste déroulante (Dropdown) pour la Condition
               DropdownButtonFormField<String>(
                 value: _conditionSelectionnee,
                 decoration: const InputDecoration(labelText: 'Condition météo'),
@@ -119,7 +117,6 @@ class _EcranAjouterVilleState extends State<EcranAjouterVille> {
                   foregroundColor: Colors.white,
                 ),
                 onPressed: () {
-                  // Si le formulaire est valide (aucun champ vide)
                   if (_formKey.currentState!.validate()) {
                     // Création du nouvel objet Ville
                     final nouvelleVille = Ville(
@@ -130,7 +127,6 @@ class _EcranAjouterVilleState extends State<EcranAjouterVille> {
                       humidite: int.parse(_humiditeController.text),
                     );
 
-                    // Appel de la méthode ajouterVille() du ViewModel via context.read
                     context.read<VilleViewModel>().ajouterVille(nouvelleVille);
 
                     // Retourner à l'écran précédent (la liste des villes)

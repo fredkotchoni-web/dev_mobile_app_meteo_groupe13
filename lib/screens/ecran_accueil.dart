@@ -15,12 +15,10 @@ class EcranAccueil extends StatelessWidget {
         return Icons.cloud;
       case 'Pluvieux':
         return Icons.umbrella;
-      // EXERCICE A
       case 'Orageux':
         return Icons.thunderstorm;
       case 'Ventueux':
         return Icons.air;
-      // FIN EXERCICE A
       default:
         return Icons.wb_cloudy;
     }
@@ -30,22 +28,26 @@ class EcranAccueil extends StatelessWidget {
   Color _couleurFond(String condition) {
     switch (condition) {
       case 'Ensoleille':
-        return Colors.orange[100]!; // fond orange clair
+        return Colors.orange[100]!;
       case 'Nuageux':
-        return Colors.grey[300]!; // fond gris clair
+        return Colors.grey[300]!;
       case 'Pluvieux':
-        return Colors.blue[100]!; // fond bleu clair
+        return Colors.blue[100]!;
       default:
-        return Colors
-            .white; // blanc par défaut pour le reste (Orageux, Ventueux, etc.)
+        return Colors.white;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // On lit les donnees depuis le ViewModel
     final vm = context.watch<VilleViewModel>();
     final ville = vm.villeSelectionnee;
+
+    final meteoData = vm.meteoActuelle;
+
+    final conditionActuelle = (meteoData != null && vm.erreur == null)
+        ? meteoData.conditionTexte
+        : (ville?.condition ?? 'Inconnu');
 
     return Scaffold(
       appBar: AppBar(
@@ -56,72 +58,179 @@ class EcranAccueil extends StatelessWidget {
       body: ville == null
           ? const Center(child: CircularProgressIndicator())
           : Container(
-              width: double.infinity, // Prend tout l'écran
-              height: double.infinity, // Prend tout l'écran
-              decoration: BoxDecoration(
-                color: _couleurFond(
-                  ville.condition,
-                ), // Application stricte des 3 couleurs
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Icone meteo
-                    Icon(
-                      _iconeMeteo(ville.condition),
-                      size: 100,
-                      color: Colors.orange,
-                    ),
-                    const SizedBox(height: 16),
+              width: double.infinity,
+              height: double.infinity,
 
-                    // Temperature
-                    Text(
-                      '${ville.temperature.toStringAsFixed(0)} C',
-                      style: const TextStyle(
-                        fontSize: 60,
-                        fontWeight: FontWeight.bold,
+              decoration: BoxDecoration(color: _couleurFond(conditionActuelle)),
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(height: 20),
+
+                      Icon(
+                        _iconeMeteo(conditionActuelle),
+                        size: 100,
+                        color: Colors.orange,
                       ),
-                    ),
+                      const SizedBox(height: 16),
 
-                    // Nom de la ville
-                    Text(
-                      ville.nom,
-                      style: TextStyle(fontSize: 28, color: Colors.grey[700]),
-                    ),
-
-                    const SizedBox(height: 12),
-
-                    // Condition et humidite
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(
-                          0.6,
-                        ), // Fond blanc transparent pour la lisibilité
-                        borderRadius: BorderRadius.circular(8),
+                      // Nom de la ville
+                      Text(
+                        ville.nom,
+                        style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800],
+                        ),
                       ),
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        '${ville.condition} - Humidité : ${ville.humidite}%',
-                        style: TextStyle(fontSize: 16, color: Colors.grey[800]),
-                      ),
-                    ),
-                    const SizedBox(height: 32),
+                      const SizedBox(height: 8),
 
-                    // Bouton pour voir la liste des villes
-                    ElevatedButton.icon(
-                      icon: const Icon(Icons.list),
-                      label: const Text('Changer de ville'),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const EcranListeVilles(),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
+                      // Affichage dynamique via l'API
+                      Consumer<VilleViewModel>(
+                        builder: (context, vm, _) {
+                          if (vm.chargement) {
+                            return const CircularProgressIndicator();
+                          }
+                          if (vm.erreur != null) {
+                            return Column(
+                              children: [
+                                const Icon(
+                                  Icons.wifi_off,
+                                  size: 60,
+                                  color: Colors.red,
+                                ),
+                                Text(
+                                  vm.erreur!,
+                                  style: const TextStyle(color: Colors.red),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () => vm.selectionnerVille(
+                                    vm.villeSelectionnee!,
+                                  ),
+                                  child: const Text('Reessayer'),
+                                ),
+                              ],
+                            );
+                          }
+
+                          final meteo = vm.meteoActuelle;
+                          if (meteo == null) return const Text('Chargement...');
+
+                          return Column(
+                            children: [
+                              Text(
+                                '${meteo.temperature.toStringAsFixed(1)} °C',
+                                style: const TextStyle(
+                                  fontSize: 60,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+
+                              // EXERCICE A - TP2
+                              Text(
+                                meteo.dateFormatee,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+
+                              // EXERCICE A
+                              Text(
+                                '${meteo.conditionTexte} - ${meteo.humidite}% humidité',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.grey[700],
+                                ),
+                              ),
+
+                              const SizedBox(height: 24),
+
+                              // EXERCICE B - TP2
+                              const Text(
+                                'Prévisions sur 3 jours',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+
+                              // EXERCICE B - TP2
+                              SizedBox(
+                                height: 120,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  itemCount: meteo.previsions.length,
+                                  itemBuilder: (context, index) {
+                                    final prev = meteo.previsions[index];
+                                    return Card(
+                                      margin: const EdgeInsets.symmetric(
+                                        horizontal: 8,
+                                      ),
+                                      elevation: 2,
+                                      child: Container(
+                                        width: 100,
+                                        padding: const EdgeInsets.all(8),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              prev.dateFormatee,
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Icon(
+                                              _iconeMeteo(prev.conditionTexte),
+                                              color: Colors.blue,
+                                              size: 28,
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              '${prev.tempMax.toStringAsFixed(0)}° / ${prev.tempMin.toStringAsFixed(0)}°',
+                                              style: const TextStyle(
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+
+                      const SizedBox(height: 32),
+
+                      // Bouton pour voir la liste des villes
+                      ElevatedButton.icon(
+                        icon: const Icon(Icons.list),
+                        label: const Text('Changer de ville'),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const EcranListeVilles(),
+                            ),
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
                 ),
               ),
             ),
