@@ -17,7 +17,6 @@ class MeteoData {
 
   factory MeteoData.fromJson(Map json) {
     final currentJson = json['current'];
-
     final dailyJson = json['daily'];
     List<PrevisionJour> listePrevisions = [];
 
@@ -25,7 +24,8 @@ class MeteoData {
       final dates = dailyJson['time'] as List;
       final maxs = dailyJson['temperature_2m_max'] as List;
       final mins = dailyJson['temperature_2m_min'] as List;
-      final codes = dailyJson['weathercode'] as List;
+      // 1. CORRECTION ICI : Passage à weather_code avec l'underscore
+      final codes = dailyJson['weather_code'] as List;
 
       for (int i = 0; i < 3 && i < dates.length; i++) {
         listePrevisions.add(
@@ -42,7 +42,8 @@ class MeteoData {
     return MeteoData(
       temperature: (currentJson['temperature_2m'] as num).toDouble(),
       humidite: (currentJson['relative_humidity_2m'] as num).toInt(),
-      weatherCode: (currentJson['weathercode'] as num).toInt(),
+      // 2. CORRECTION ICI : Passage à weather_code avec l'underscore
+      weatherCode: (currentJson['weather_code'] as num).toInt(),
       time: currentJson['time'] as String,
       previsions: listePrevisions,
     );
@@ -55,6 +56,12 @@ class MeteoData {
     if (weatherCode >= 80 && weatherCode <= 82) return 'Averses';
     if (weatherCode >= 95) return 'Orageux';
     return 'Variable';
+  }
+
+  /// NOUVEAU - EXERCICE B : Vérifie si la météo présente un danger
+  /// (Température > 40°C OU Temps Orageux weatherCode >= 95)
+  bool estDangereux() {
+    return temperature > 40.0 || weatherCode >= 95;
   }
 
   String get dateFormatee {

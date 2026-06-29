@@ -30,29 +30,26 @@ class MeteoService {
   Future<MeteoData?> getMeteo(String nomVille) async {
     final lesCoordonnees = coords[nomVille];
 
-    // CORRECTION : On vérifie la variable locale 'lesCoordonnees'
     if (lesCoordonnees == null) {
       print('Ville inconnue : $nomVille');
       return null;
     }
 
     try {
-      // Exercice B
       final response = await _dio.get(
         '/forecast',
         queryParameters: {
-          // CORRECTION : On utilise la liste 'lesCoordonnees' récupérée plus haut
           'latitude': lesCoordonnees[0],
           'longitude': lesCoordonnees[1],
-          'current': 'temperature_2m,relative_humidity_2m,weathercode',
-          // EXERCICE B
-          'daily': 'temperature_2m_max,temperature_2m_min,weathercode',
+          'current':
+              'temperature_2m,relative_humidity_2m,weather_code', // Corrigé ici
+          'daily':
+              'temperature_2m_max,temperature_2m_min,weather_code', // Corrigé ici
           'timezone': 'auto',
         },
       );
 
-      // Exercice B
-      // Conversion sécurisée en Map<String, dynamic> pour éviter les conflits de types
+      // Conversion sécurisée en Map<String, dynamic>
       return MeteoData.fromJson(Map<String, dynamic>.from(response.data));
     } on DioException catch (e) {
       print('Erreur reseau : ${e.message}');

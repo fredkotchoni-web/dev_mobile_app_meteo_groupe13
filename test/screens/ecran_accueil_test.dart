@@ -20,14 +20,11 @@ void main() {
 
   testWidgets('EcranAccueil affiche une AppBar avec le titre', (tester) async {
     await tester.pumpWidget(creerAppTest(vm));
-
-    // On laisse s'exécuter le Timer de l'initState s'il y en a un
     await tester.pump(const Duration(seconds: 1));
 
     expect(find.byType(AppBar), findsOneWidget);
     expect(find.text('AppMeteo'), findsOneWidget);
 
-    // Évacuer les Timers restants du réseau ou de l'initState pour éviter le crash
     await tester.binding.runAsync(
       () => Future.delayed(const Duration(seconds: 1)),
     );
@@ -37,8 +34,7 @@ void main() {
     await tester.pumpWidget(creerAppTest(vm));
     await tester.pump(const Duration(seconds: 1));
 
-    final textFinder = find.textContaining('C');
-    expect(textFinder, findsWidgets);
+    expect(find.textContaining('C'), findsWidgets);
 
     await tester.binding.runAsync(
       () => Future.delayed(const Duration(seconds: 1)),
@@ -61,24 +57,11 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
 
     final boutonFinder = find.text('Changer de ville');
-    expect(boutonFinder, findsOneWidget);
-
-    // Avant :
-    await tester.tap(boutonFinder);
-
-    // Après :
-    await tester.ensureVisible(
-      boutonFinder,
-    ); // Force le défilement si nécessaire
-    await tester.tap(
-      boutonFinder,
-      warnIfMissed: false,
-    ); // Désactive l'avertissement de zone de saisie
-    // Attendre que la boîte de dialogue ou l'écran s'ouvre
+    await tester.ensureVisible(boutonFinder);
+    await tester.tap(boutonFinder, warnIfMissed: false);
     await tester.pump(const Duration(milliseconds: 500));
 
-    final elementListeFinder = find.text('Cotonou');
-    expect(elementListeFinder, findsWidgets);
+    expect(find.text('Cotonou'), findsWidgets);
 
     await tester.binding.runAsync(
       () => Future.delayed(const Duration(seconds: 1)),

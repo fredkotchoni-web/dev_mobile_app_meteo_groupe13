@@ -59,3 +59,28 @@ Nous avons fait un super boulot sur cette application météo, le code est propr
 |La vraie température s’affiche dans l’app        |    ☐    |     ☐         |    ☑    |
 |Le loader s’affiche pendant le chargement        |    ☐    |     ☐         |    ☑    |
 |L’erreur réseau est gérée et affichée            |    ☐    |     ☐         |    ☑    |
+
+
+## TP3
+## Grille d’auto-évaluation
+
+|CRITERE                                          | NON FAIT | PARTIELLEMENT | REALISER |
+|-------------------------------------------------|----------|---------------|--------- |
+|Les permissions sont déclarées dans              |          |               |          |
+|AndroidManifest.xml                              |    ☐    |     ☐         |    ☑    |
+|On peut sélectionner une photo depuis la galerie |    ☐    |     ☐         |    ☑    |
+|La photo s’affiche dans l’écran d’accueil        |    ☐    |     ☐         |    ☑    |
+|Le GPS demande la permission l’utilisateur       |    ☐    |     ☐         |    ☑    |
+|La ville la plus proche est identifée
+|Une notication s’affiche quand T > 33C           |    ☐    |     ☐         |    ☑    |
+
+## TP4
+## Grille d’auto-évaluation
+
+|CRITERE                                          | NON FAIT | PARTIELLEMENT | REALISER |
+|-------------------------------------------------|----------|---------------|--------- | 
+|L’écran d’accueil apparat en fondu au démarrage  |    ☐    |     ☐         |    ☑    |
+|L’icne est enveloppée dans un Hero               |    ☐    |     ☐         |    ☑    |
+|La transition Hero s’anime entre les deux écrans |    ☐    |     ☐         |    ☑    |
+|AnimatedSwitcher anime le changement de T        |    ☐    |     ☐         |    ☑    |
+|DevTools est ouvert et les rebuilds sont observés|    ☐    |     ☐         |    ☑    |

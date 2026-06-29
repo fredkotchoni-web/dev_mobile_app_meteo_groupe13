@@ -65,7 +65,6 @@ class _EcranAccueilState extends State<EcranAccueil>
     }
   }
 
-  // Correction de la couleur de l'icône selon le temps
   Color _couleurIcone(String condition) {
     switch (condition) {
       case 'Ensoleille':
@@ -80,7 +79,6 @@ class _EcranAccueilState extends State<EcranAccueil>
     }
   }
 
-  // RETOURNE UNIQUEMENT LES TROIS COULEURS DEMANDÉES (Correction de l'application)
   Color _couleurFond(String condition) {
     switch (condition) {
       case 'Ensoleille':
@@ -88,7 +86,7 @@ class _EcranAccueilState extends State<EcranAccueil>
       case 'Nuageux':
         return Colors.grey[300]!;
       case 'Pluvieux':
-      case 'Orageux': // Ajout d'une sécurité si Orageux arrive
+      case 'Orageux':
         return Colors.blue[100]!;
       default:
         return Colors.white;
@@ -147,18 +145,18 @@ class _EcranAccueilState extends State<EcranAccueil>
         ? meteoData.conditionTexte
         : (ville?.condition ?? 'Inconnu');
 
-    // --- GESTION DE LA ROTATION CONTINUE ---
+    // --- GESTION DE LA ROTATION CONTINUE (CORRIGÉE) ---
     if (conditionActuelle == 'Ensoleille') {
       _rotationController.repeat();
     } else {
-      _rotationController.stop();
+      // FIX : reset() remet l'animation à 0 pour éviter que l'icône reste penchée au stop
+      _rotationController.reset();
     }
 
     final double tailleIcone = (meteoData != null && meteoData.temperature > 30)
         ? 120.0
         : 80.0;
 
-    // FIX : On utilise directement la fonction de condition pour avoir les vraies 3 couleurs demandées !
     Color couleurFondMeteo = _couleurFond(conditionActuelle);
 
     return Scaffold(
@@ -214,9 +212,7 @@ class _EcranAccueilState extends State<EcranAccueil>
                                     child: Icon(
                                       _iconeMeteo(conditionActuelle),
                                       size: tailleIcone,
-                                      color: _couleurIcone(
-                                        conditionActuelle,
-                                      ), // FIX : Couleur dynamique !
+                                      color: _couleurIcone(conditionActuelle),
                                     ),
                                   ),
                                 ),

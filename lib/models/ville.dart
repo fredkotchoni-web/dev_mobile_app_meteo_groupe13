@@ -15,7 +15,6 @@ class Ville {
     this.photoPath, // optionnel
   });
 
-  // Copier la ville avec une nouvelle photo
   Ville copierAvecPhoto(String chemin) {
     return Ville(
       nom: nom,
